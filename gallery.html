@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio Website | Grouped Gallery Section</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #F0F8FF;
+    }
+/* Scroll to Top Button CSS */
+.scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #4070f4;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #305ac0;
+            transform: scale(1.1);
+        }
+    /* Navbar Styling */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      padding: 10px 0;
+      background: #4070f4;
+    }
+
+    nav .navbar {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .navbar .logo a {
+      font-weight: 500;
+      font-size: 30px;
+      color: #fff;
+    }
+
+    nav .navbar .menu {
+      display: flex;
+      list-style: none;
+    }
+
+    nav .navbar .menu li {
+      margin: 0 10px;
+    }
+
+    nav .navbar .menu a {
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    nav .navbar .menu a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      padding: 100px 20px;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    .gallery .title {
+      font-size: 40px;
+      font-weight: 700;
+      color: #4070f4;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    .gallery-group {
+      margin-bottom: 50px;
+    }
+
+    .gallery-group h3 {
+      font-size: 30px;
+      color: #4070f4;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    /* Swiper Styles */
+    .swiper-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .swiper-slide {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .swiper-slide img,
+    .swiper-slide video.skill-video {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .swiper-slide:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .swiper-slide .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.3s ease;
+      border-radius: 15px;
+    }
+
+    .swiper-slide:hover .overlay {
+      opacity: 1;
+    }
+
+    .swiper-slide .overlay .overlay-text {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Navigation buttons for Swiper */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #4070f4;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      padding: 12px;
+      transition: background-color 0.3s ease;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      background-color: #4070f4;
+      color: #fff;
+    }
+
+    .swiper-pagination-bullet {
+      background-color: #4070f4;
+    }
+  </style>
+</head>
+
+<body>
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" id="scrollToTopBtn">
+  <i class="fas fa-arrow-up"></i>
+</button>
+  <!-- Navigation Menu -->
+  <nav>
+    <div class="navbar">
+      <div class="logo"><a href="home.html">Portfolio.</a></div>
+      <ul class="menu">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="family.html">Family</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Gallery Section -->
+  <section class="gallery" id="gallery">
+    <div class="title">My Gallery</div>
+    <p></p>
+    <!-- Group 1: My Self -->
+    <div class="gallery-group">
+      <h2>My Self</h2>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="nisa1.jpg" alt="nisa1">
+            <div class="overlay">
+              <div class="overlay-text">CAFE</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="nisa7.jpg" alt="Nisa Image 7">
+            <div class="overlay">
+              <div class="overlay-text">FUNFAIR</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="nisa5.jpg" alt="Nisa Image 5">
+            <div class="overlay">
+              <div class="overlay-text">HABIS KELAS</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="nisa11.jpg" alt="Nisa Image 8">
+            <div class="overlay">
+              <div class="overlay-text">FESTIVAL</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="nisa13.jpg" alt="Nisa Image 11">
+            <div class="overlay">
+              <div class="overlay-text">bye.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+
+    <!-- Group 1: Friends -->
+    <div class="gallery-group">
+      <h2>Friends</h2>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="bestie3.jpg" alt="Bestie">
+            <div class="overlay">
+              <div class="overlay-text">BFF</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="trio.jpg" alt="Trio">
+            <div class="overlay">
+              <div class="overlay-text">TRIO</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="friend8.jpg" alt="friend4">
+            <div class="overlay">
+              <div class="overlay-text">WITH AINA</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="trio1.jpg" alt="trio 1">
+            <div class="overlay">
+              <div class="overlay-text">WITH SYAKIRAH</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="friend10.jpg" alt="Nature Image 3">
+            <div class="overlay">
+              <div class="overlay-text">MATCHING BLUE</div>
+            </div>
+          </div>
+          <!-- Add more slides as needed -->
+        </div>
+
+
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+
+    <!-- Add More Groups Here -->
+    <!-- Group 3: Classmate -->
+    <div class="gallery-group">
+      <h2>Classmate</h2>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="classmate.jpg" alt="Classmate Image 1">
+            <div class="overlay">
+              <div class="overlay-text">KCDIM1105F</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="classmate3.jpg" alt="Classmate Image 2">
+            <div class="overlay">
+              <div class="overlay-text">TEAMATES</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="classmate1.jpg" alt="Classmate Image 4">
+            <div class="overlay">
+              <div class="overlay-text">KCDIM1105F</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+
+    <!-- Group 4: Video -->
+    <div class="gallery-group">
+      <h2>Random Video</h2>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <video controls class="skill-video" autoplay muted>
+              <source src="video1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="swiper-slide">
+            <video controls class="skill-video" autoplay muted>
+              <source src="videonisa5.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="swiper-slide">
+            <video controls class="skill-video" autoplay muted>
+              <source src="videotiktok.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+   
+   const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        // Show the button when the user scrolls down
+        window.addEventListener('scroll', () => {
+            if (document.documentElement.scrollTop > 100) {
+                scrollToTopBtn.style.display = 'flex';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        // Scroll smoothly to the top when the button is clicked
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+   
+   document.querySelectorAll('.swiper-container').forEach(container => {
+      new Swiper(container, {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+          nextEl: container.querySelector('.swiper-button-next'),
+          prevEl: container.querySelector('.swiper-button-prev'),
+        },
+        pagination: {
+          el: container.querySelector('.swiper-pagination'),
+          clickable: true,
+        },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        },
+      });
+    });
+
+    document.querySelectorAll('video.skill-video').forEach(video => {
+      video.addEventListener('play', () => {
+        document.querySelectorAll('video.skill-video').forEach(v => {
+          if (v !== video) v.pause();
+        });
+      });
+    });
+
+  </script>
+</body>
+
+</html>
